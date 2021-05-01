@@ -1,23 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import "./styles.css";
+
+import { useState } from "react";
+import "./App.css";
 
 function App() {
+  const [quote, setquote] = useState("");
+
+  const getSimpsonQuote = () => {
+    fetch("https://simpsons-quotes-api.herokuapp.com/quotes")
+      .then((res) => res.json())
+      .then((data) => setquote(data[0]));
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={getSimpsonQuote}>Click here</button>
+      <h1>{quote.quote}</h1>
+      <h2>{quote.character}</h2>
+      <img src={quote.image} alt="simpson" />
     </div>
   );
 }
